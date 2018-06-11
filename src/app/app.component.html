@@ -8,14 +8,14 @@
       <h4 mat-subheader>Backlog</h4>
 
       <mat-card
-        *ngFor="let card of backlogCards"
+        *ngFor="let card of (backlogList$ | async)"
         mat-elevation-z2
         mat-button
         [matMenuTriggerFor]="menu" >
-        {{card}}
+        {{card.text}}
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="moveToDoing(card)">Doing</button>
-          <button mat-menu-item (click)="moveToDone(card)">Done</button>
+          <button mat-menu-item (click)="moveToDoing(card.id)">doing</button>
+          <button mat-menu-item (click)="moveToDone(card.id)">done</button>
         </mat-menu>
       </mat-card>
 
@@ -26,14 +26,14 @@
       <h4 mat-subheader>Doing</h4>
 
       <mat-card
-        *ngFor="let card of doingCards"
+        *ngFor="let card of (doingList$ | async)"
         mat-elevation-z2
         mat-button
         [matMenuTriggerFor]="menu" >
-        {{card}}
+        {{card.text}}
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="moveToDoing(card)">Doing</button>
-          <button mat-menu-item (click)="moveToDone(card)">Done</button>
+          <button mat-menu-item (click)="moveToDone(card.id)">done</button>
+          <button mat-menu-item (click)="moveToBacklog(card.id)">doing</button>
         </mat-menu>
       </mat-card>
 
@@ -45,14 +45,14 @@
       <h4 mat-subheader>Done</h4>
 
       <mat-card
-        *ngFor="let card of doneCards"
+        *ngFor="let card of (doneList$ | async)"
         mat-elevation-z2
         mat-button
         [matMenuTriggerFor]="menu" >
-        {{card}}
+        {{card.text}}
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="moveToDoing(card)">Doing</button>
-          <button mat-menu-item (click)="moveToDone(card)">Done</button>
+          <button mat-menu-item (click)="moveToBacklog(card.id)">backlog</button>
+          <button mat-menu-item (click)="moveToDoing(card.id)">doing</button>
         </mat-menu>
       </mat-card>
 
