@@ -9,6 +9,8 @@ import {
   ADD_BACKLOG, ADD_DOING, ADD_DONE, CREATE_ITEM, CreateItem, default as PayloadAction, REM_BACKLOG, REM_DOING,
   REM_DONE
 } from './store/app.actions';
+import {DialogComponent} from './dialog/dialog.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +27,7 @@ export class AppComponent implements OnInit {
 
 
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.itemEntities$ = this.store.select(getEntities);
@@ -52,6 +54,7 @@ export class AppComponent implements OnInit {
       payload: card
     };
     this.store.dispatch(createItemAction);
+    this.moveToBacklog(card.id);
     return card;
   }
 
@@ -80,6 +83,22 @@ export class AppComponent implements OnInit {
     this.store.dispatch(remBacklog);
     this.store.dispatch(remDoing);
     this.store.dispatch(addDone);
+  }
+
+
+  /**
+   * Dialog
+   */
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '250px',
+      data: { text: '' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.createItem(result);
+    });
   }
 
 }

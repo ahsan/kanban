@@ -1,5 +1,8 @@
 <div fxLayout="column" fxFlexFill>
-  <mat-toolbar>Kanban</mat-toolbar>
+  <mat-toolbar fxLayout="row" fxLayoutAlign="space-between center" >
+    Kanban
+    <button mat-mini-fab color="primary" (click)="openDialog()">+</button>
+  </mat-toolbar>
   <div fxLayout="row" fxLayoutAlign="space-around" fxFlex="">
 
 

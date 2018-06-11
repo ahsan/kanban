@@ -4,17 +4,20 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
-  MatButtonModule, MatCardModule, MatGridListModule, MatListModule, MatMenuModule,
+  MatButtonModule, MatCardModule, MatDialogModule, MatFormFieldModule, MatGridListModule, MatListModule, MatMenuModule,
   MatToolbarModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {StoreModule} from '@ngrx/store';
 import {AppReducer} from './store/app.reducers';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import { DialogComponent } from './dialog/dialog.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +31,9 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
     MatGridListModule,
     MatMenuModule,
     MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    FormsModule,
 
     // Store
     StoreModule.forRoot({
@@ -39,6 +45,6 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
     }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, DialogComponent]
 })
 export class AppModule { }
