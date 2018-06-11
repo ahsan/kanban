@@ -11,11 +11,26 @@ import {
 } from './store/app.actions';
 import {DialogComponent} from './dialog/dialog.component';
 import {MatDialog} from '@angular/material';
+import {animate, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: '0', transform: 'rotate(-5deg)' }),
+        animate('.5s ease-out', style({ opacity: '1', transform: 'rotate(0)' })),
+      ]),
+    ]),
+    trigger('fadeOut', [
+      transition(':leave', [
+        style({ opacity: '1', transform: 'rotate(0)' }),
+        animate('.2s ease-out', style({ opacity: '0', transform: 'rotate(5deg)' })),
+      ]),
+    ]),
+  ],
 })
 export class AppComponent implements OnInit {
 
@@ -34,14 +49,6 @@ export class AppComponent implements OnInit {
     this.backlogList$ = this.store.select(getBacklog);
     this.doingList$ = this.store.select(getDoing);
     this.doneList$ = this.store.select(getDone);
-
-    this.createItem('First');
-    this.createItem('Second');
-    this.moveToBacklog(0);
-    this.moveToBacklog(1);
-    this.moveToDoing(0);
-    this.moveToDone(1);
-
   }
 
   createItem(text: string) {
@@ -97,7 +104,9 @@ export class AppComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.createItem(result);
+      if(result && result !== '') {
+        this.createItem(result);
+      }
     });
   }
 
