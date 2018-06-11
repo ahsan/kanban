@@ -18,13 +18,11 @@ import {animate, style, transition, trigger} from '@angular/animations';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   animations: [
-    trigger('fadeIn', [
+    trigger('fadeInOut', [
       transition(':enter', [
         style({ opacity: '0', transform: 'rotate(-5deg)' }),
         animate('.5s ease-out', style({ opacity: '1', transform: 'rotate(0)' })),
       ]),
-    ]),
-    trigger('fadeOut', [
       transition(':leave', [
         style({ opacity: '1', transform: 'rotate(0)' }),
         animate('.2s ease-out', style({ opacity: '0', transform: 'rotate(5deg)' })),

@@ -1,17 +1,18 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
+import {AppState} from './app.state';
 
 export const getState = createFeatureSelector<object>('kanban');
 
 export const getEntities = createSelector(
   getState,
-  (state) => {
+  (state: AppState) => {
     return state.entities;
   }
 );
 
 export const getBacklogIdsList = createSelector(
   getState,
-  (state) => {
+  (state: AppState) => {
     console.log('BL: ', state.backlog)
     return state.backlog;
   }
@@ -19,14 +20,14 @@ export const getBacklogIdsList = createSelector(
 
 export const getDoingIdsList = createSelector(
   getState,
-  (state) => {
+  (state: AppState) => {
     return state.doing;
   }
 );
 
 export const getDoneIdsList = createSelector(
   getState,
-  (state) => {
+  (state: AppState) => {
     return state.done;
   }
 );
